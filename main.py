@@ -4,7 +4,7 @@ import logging
 from time import sleep
 import pyautogui
 import keyboard
-#prde
+#prd
 #Getting your credentials
 server = 'irc.chat.twitch.tv'
 port = 6667
