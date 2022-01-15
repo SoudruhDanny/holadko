@@ -6,7 +6,7 @@ import pyautogui
 import keyboard
 import re
 
-
+#
 #Getting your credentials
 server = 'irc.chat.twitch.tv'
 port = 6667
