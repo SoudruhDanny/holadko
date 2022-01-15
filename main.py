@@ -4,7 +4,9 @@ import logging
 from time import sleep
 import pyautogui
 import keyboard
-#asd
+import re
+
+
 #Getting your credentials
 server = 'irc.chat.twitch.tv'
 port = 6667
@@ -13,37 +15,44 @@ token = oauthy.oauth #test oauth
 channel = '#jimysak'
 
 
-def buyXP():
+def buy_xp():
     pyautogui.press('F')
     sleep(0.06)
 
 
-def rollShop():
+def roll_shop():
     pyautogui.press('D')
     sleep(0.06)
 
 
-def Shop():
+def shop(value: int):
+    print(value)
 
-    pyautogui.moveTo(586, 1009)
-    pyautogui.leftClick()
-    sleep(0.06)
+    if value == 1:
+        pyautogui.moveTo(586, 1009)
+        pyautogui.leftClick()
+        sleep(0.06)
 
-    pyautogui.moveTo(779, 995)
-    pyautogui.leftClick()
-    sleep(0.06)
+    if value == 2:
+        pyautogui.moveTo(779, 995)
+        pyautogui.leftClick()
+        sleep(0.06)
 
-    pyautogui.moveTo(959, 993)
-    pyautogui.leftClick()
-    sleep(0.06)
+    if value == 3:
+        pyautogui.moveTo(959, 993)
+        pyautogui.leftClick()
+        sleep(0.06)
 
-    pyautogui.moveTo(1188, 1005)
-    pyautogui.leftClick()
-    sleep(0.06)
+    if value == 4:
+        pyautogui.moveTo(1188, 1005)
+        pyautogui.leftClick()
+        sleep(0.06)
 
-    pyautogui.moveTo(1357, 999)
-    pyautogui.leftClick()
-    sleep(0.06)
+    if value == 5:
+        pyautogui.moveTo(1357, 999)
+        pyautogui.leftClick()
+        sleep(0.06)
+
 
 def main():
     # Connecting to Twitch with sockets
@@ -66,11 +75,14 @@ def main():
         elif len(resp) > 0:
             print(resp)
             if "!buyXP" in resp:
-                buyXP()
+                buy_xp()
             if "!rollShop" in resp:
-                rollShop()
-            if f"!buy {x}" in resp:
-                Shop()
+                roll_shop()
+            if "!buy" in resp:
+                raw_value = re.search(r'\d', resp)
+                value = raw_value.group()
+                if int(value) in range(1, 6):
+                    shop(int(value))
 
 
 if __name__ == '__main__':
