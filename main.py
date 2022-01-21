@@ -3,10 +3,10 @@ import oauthy
 import logging
 from time import sleep
 import pyautogui
-import keyboard
+#import keyboard
 import re
-from operator import methodcaller
-from pynput.keyboard import Key, Controller
+#from operator import methodcaller
+from pynput.keyboard import Controller
 
 KEYBOARD = Controller()
 
@@ -16,7 +16,7 @@ KEYBOARD = Controller()
 server = 'irc.chat.twitch.tv'
 port = 6667
 nickname = 'jimyslave'
-token = oauthy.oauth #test oauth
+token = oauthy.oauth  #test oauth
 channel = '#jimysak'
 
 board_map = {
@@ -76,7 +76,7 @@ item_map = {
 }
 
 item_move = {
-    1: (549, 446),
+    1: (549, 446),  #Board
     2: (681, 446),
     3: (792, 446),
     4: (908, 446),
@@ -103,8 +103,8 @@ item_move = {
     25: (961, 676),
     26: (1084, 676),
     27: (1222, 676),
-    28: (1337, 676),
-    29: (433, 787),
+    28: (1337, 676),  #End of board
+    29: (433, 787),   #Deck
     30: (546, 787),
     31: (655, 787),
     32: (771, 787),
@@ -112,8 +112,9 @@ item_move = {
     34: (1012, 787),
     35: (1129, 787),
     36: (1254, 787),
-    37: (1356, 787)
+    37: (1356, 787)  #End of deck
 }
+
 
 def augment(value):
     if value == 1:
@@ -231,6 +232,7 @@ def shop(value: int):
         pyautogui.mouseUp(button='left')
         sleep(0.06)
 
+
 def sell(deck):
     pyautogui.moveTo(deck_map[int(deck)])
     sleep(.050)
@@ -240,6 +242,7 @@ def sell(deck):
     sleep(.050)
     pyautogui.mouseUp(button='left')
     print('Done')
+
 
 def move(board1, board2):
     pyautogui.moveTo(board_map[int(board1)])
@@ -251,7 +254,8 @@ def move(board1, board2):
     pyautogui.mouseUp(button='left')
     print('Done')
 
-def moveItem(item, number):
+
+def move_item(item, number):
     pyautogui.moveTo(item_map[int(item)])
     sleep(.050)
     pyautogui.mouseDown(button='left')
@@ -260,6 +264,7 @@ def moveItem(item, number):
     sleep(.050)
     pyautogui.mouseUp(button='left')
     print('Done')
+
 
 def main():
     try:
@@ -291,6 +296,9 @@ def main():
 
                 if "!lock" in resp:
                     lock_shop()
+
+                """if "!pos" in resp:
+                    print(pyautogui.position())"""
 
                 if "!XP" in resp:
                     buy_xp()
@@ -332,7 +340,7 @@ def main():
                     raw_value = re.findall(r'\s\d{1,2}', resp)
                     item = raw_value[0]
                     position = raw_value[1]
-                    moveItem(item, position)
+                    move_item(item, position)
 
     except Exception as exception:
         print(exception)
