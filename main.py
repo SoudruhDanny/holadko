@@ -234,13 +234,13 @@ def main():
                     raw_value = re.findall(r'\s\d{1,2}', resp)
                     deck = raw_value[0]
                     board = raw_value[1]
-                    move_champion_to(deck - 1, board)
+                    move_champion_to(int(deck) - 1, board)
 
                 if '!toDeck' in resp:
                     raw_value = re.findall(r'\s\d{1,2}', resp)
                     deck = raw_value[0]
                     board = raw_value[1]
-                    move_champion_from(deck - 1, board)
+                    move_champion_from(int(deck) - 1, board)
 
     except Exception as exception:
         print(exception)
