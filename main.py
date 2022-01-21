@@ -134,15 +134,21 @@ def move_champion_from(deck, board):
 
 
 def buy_xp():
-    sleep(0.01)
-    KEYBOARD.press('f')
-    sleep(0.06)
+    pyautogui.moveTo()
+    sleep(.050)
+    pyautogui.mouseDown(button='left')
+    sleep(.050)
+    pyautogui.mouseUp(button='left')
+    print('Done')
 
 
 def roll_shop():
-    sleep(0.01)
-    KEYBOARD.press('d')
-    sleep(0.06)
+    pyautogui.moveTo()
+    sleep(.050)
+    pyautogui.mouseDown(button='left')
+    sleep(.050)
+    pyautogui.mouseUp(button='left')
+    print('Done')
 
 
 def shop(value: int):
@@ -186,6 +192,25 @@ def shop(value: int):
         pyautogui.mouseUp(button='left')
         sleep(0.06)
 
+def sell(deck):
+    pyautogui.moveTo(board_map[int(deck)])
+    sleep(.050)
+    pyautogui.mouseDown(button='left')
+    sleep(.050)
+    pyautogui.moveTo(1332, 531)
+    sleep(.050)
+    pyautogui.mouseUp(button='left')
+    print('Done')
+
+def move(board1, board2):
+    pyautogui.moveTo(board_map[int(board1)])
+    sleep(.050)
+    pyautogui.mouseDown(button='left')
+    sleep(.050)
+    pyautogui.moveTo(deck_map[int(board2)])
+    sleep(.050)
+    pyautogui.mouseUp(button='left')
+    print('Done')
 
 def main():
     try:
@@ -234,13 +259,25 @@ def main():
                     raw_value = re.findall(r'\s\d{1,2}', resp)
                     deck = raw_value[0]
                     board = raw_value[1]
-                    move_champion_to(int(deck) - 1, board)
+                    move_champion_to(int(deck), int(board))
 
                 if '!toDeck' in resp:
                     raw_value = re.findall(r'\s\d{1,2}', resp)
-                    deck = raw_value[0]
-                    board = raw_value[1]
-                    move_champion_from(int(deck) - 1, board)
+                    deck = raw_value[1]
+                    board = raw_value[0]
+                    move_champion_from(int(deck), int(board))
+
+                if '!sell' in resp:
+                    raw_value = re.search(r'\s\d', resp)
+                    value = raw_value.group()
+                    if int(value) in range(1, 10):
+                        sell(int(value))
+
+                if '!move' in resp:
+                    raw_value = re.findall(r'\s\d{1,2}', resp)
+                    board1 = raw_value[0]
+                    board2 = raw_value[1]
+                    move(board1, board2)
 
     except Exception as exception:
         print(exception)
