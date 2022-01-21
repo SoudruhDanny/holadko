@@ -75,6 +75,45 @@ item_map = {
     10: (414, 683)
 }
 
+item_move = {
+1: (549, 446),
+    2: (681, 446),
+    3: (792, 446),
+    4: (908, 446),
+    5: (1020, 446),
+    6: (1142, 446),
+    7: (1255, 446),
+    8: (598, 520),
+    9: (718, 520),
+    10: (838, 520),
+    11: (972, 520),
+    12: (1074, 520),
+    13: (1214, 520),
+    14: (1324, 520),
+    15: (547, 593),
+    16: (662, 593),
+    17: (782, 593),
+    18: (897, 593),
+    19: (1026, 593),
+    20: (1153, 593),
+    21: (1273, 593),
+    22: (587, 676),
+    23: (683, 676),
+    24: (823, 676),
+    25: (961, 676),
+    26: (1084, 676),
+    27: (1222, 676),
+    28: (1337, 676),
+    29: (433, 787),
+    30: (546, 787),
+    31: (655, 787),
+    32: (771, 787),
+    33: (889, 787),
+    34: (1012, 787),
+    35: (1129, 787),
+    36: (1254, 787),
+    37: (1356, 787)
+}
 
 def augment(value):
     if value == 1:
@@ -134,7 +173,7 @@ def move_champion_from(deck, board):
 
 
 def buy_xp():
-    pyautogui.moveTo()
+    pyautogui.moveTo(365, 970)
     sleep(.050)
     pyautogui.mouseDown(button='left')
     sleep(.050)
@@ -143,7 +182,7 @@ def buy_xp():
 
 
 def roll_shop():
-    pyautogui.moveTo()
+    pyautogui.moveTo(365, 1031)
     sleep(.050)
     pyautogui.mouseDown(button='left')
     sleep(.050)
@@ -208,6 +247,16 @@ def move(board1, board2):
     pyautogui.mouseDown(button='left')
     sleep(.050)
     pyautogui.moveTo(deck_map[int(board2)])
+    sleep(.050)
+    pyautogui.mouseUp(button='left')
+    print('Done')
+
+def moveItem(item, number):
+    pyautogui.moveTo(board_map[int(item)])
+    sleep(.050)
+    pyautogui.mouseDown(button='left')
+    sleep(.050)
+    pyautogui.moveTo(deck_map[int(number)])
     sleep(.050)
     pyautogui.mouseUp(button='left')
     print('Done')
@@ -278,6 +327,12 @@ def main():
                     board1 = raw_value[0]
                     board2 = raw_value[1]
                     move(board1, board2)
+
+                if '!item' in resp:
+                    raw_value = re.findall(r'\s\d{1,2}', resp)
+                    item = raw_value[0]
+                    position = raw_value[1]
+                    move(item, position)
 
     except Exception as exception:
         print(exception)
